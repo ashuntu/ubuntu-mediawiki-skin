@@ -1,0 +1,10 @@
+settings:
+  jira_project_key: UDENG
+  components:
+    - WSL
+  labels:
+    - jira
+  status_mapping:
+    opened: Untriaged
+    closed: Done
+  epic_key: "UDENG-11225"
