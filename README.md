@@ -20,21 +20,21 @@ package has tagged releases yet, so the `@dev` stability flags are required:
 
 ```json
 {
-	"repositories": [
-		{
-			"type": "path",
-			"url": "/path/to/ubuntu-mediawiki-skin",
-			"options": { "symlink": false }
-		},
-		{
-			"type": "vcs",
-			"url": "https://github.com/ubuntu/ubuntu-mediawiki-extension.git"
-		}
-	],
-	"require": {
-		"ubuntu/mediawiki-ubuntu-skin": "*@dev",
-		"ubuntu/mediawiki-ubuntu-extension": "*@dev"
-	}
+  "repositories": [
+    {
+      "type": "path",
+      "url": "/path/to/ubuntu-mediawiki-skin",
+      "options": { "symlink": false }
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/ubuntu/ubuntu-mediawiki-extension.git"
+    }
+  ],
+  "require": {
+    "ubuntu/mediawiki-ubuntu-skin": "*@dev",
+    "ubuntu/mediawiki-ubuntu-extension": "*@dev"
+  }
 }
 ```
 

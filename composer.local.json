@@ -6,6 +6,6 @@
 		}
 	],
 	"require": {
-		"ubuntu/mediawiki-ubuntu-extension": "*"
+		"ubuntu/mediawiki-ubuntu-extension": "*@dev"
 	}
 }
