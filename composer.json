@@ -26,7 +26,8 @@
 		"source": "https://github.com/ubuntu/ubuntu-mediawiki-skin"
 	},
 	"require": {
-		"composer/installers": ">1.0.12"
+		"composer/installers": ">1.0.12",
+		"ubuntu/mediawiki-ubuntu-extension": "*"
 	},
 	"extra": {
 		"branch-alias": {

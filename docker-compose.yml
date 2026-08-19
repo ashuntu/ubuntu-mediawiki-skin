@@ -14,11 +14,10 @@ services:
     ports:
       - "8080:80"
     volumes:
-      # Option 1: direct mount — skin files are served directly from this directory
+      # Skin files are served directly from this directory (live mount)
       - .:/var/www/html/skins/Ubuntu
-      # Option 2: composer path repository — exposes the skin directory to composer.local.json
-      - .:/ubuntu-skin
-      # Option 2: mount composer.local.json to install skin via composer
+      # composer.local.json pulls in the UbuntuWiki extension from GitHub;
+      # `make setup` / `make up` run composer inside the container to install it
       - ./composer.local.json:/var/www/html/composer.local.json
       # LocalSettings.php is managed via: make deploy
     depends_on:

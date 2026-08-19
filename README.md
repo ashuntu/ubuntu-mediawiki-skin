@@ -6,12 +6,37 @@ This is a modified version of the Vector-2022 skin for use in the upcoming Ubunt
 
 ### Requirements
 
-- MediaWiki 1.44 or later
+- MediaWiki 1.46 or later
 - Composer
+- The [UbuntuWiki extension](https://github.com/ubuntu/ubuntu-mediawiki-extension) —
+  provides shared styles, Ubuntu Sans webfonts, the cookie consent banner,
+  footer links, and code block enhancements. The skin refuses to load without it.
 
 ### Install via Composer
 
-Add the skin to your [composer.local.json](composer.local.json) file.
+Add the skin and the extension to your `composer.local.json` file. The
+extension is not on Packagist, so add its GitHub repository as well. Neither
+package has tagged releases yet, so the `@dev` stability flags are required:
+
+```json
+{
+	"repositories": [
+		{
+			"type": "path",
+			"url": "/path/to/ubuntu-mediawiki-skin",
+			"options": { "symlink": false }
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/ubuntu/ubuntu-mediawiki-extension.git"
+		}
+	],
+	"require": {
+		"ubuntu/mediawiki-ubuntu-skin": "*@dev",
+		"ubuntu/mediawiki-ubuntu-extension": "*@dev"
+	}
+}
+```
 
 Then run:
 
@@ -21,7 +46,7 @@ composer update
 
 ### Configure
 
-See [LocalSettings.example.php](LocalSettings.example.php) for an example of how to configure the skin in your `LocalSettings.php`.
+See [LocalSettings.example.php](LocalSettings.example.php) for an example of how to configure the skin and extension in your `LocalSettings.php`.
 
 ---
 
@@ -105,13 +130,16 @@ These are set in `skin.json` under `DefaultUserOptions` and apply to new users o
 
 #### Bundled Assets
 
-- `resources/fonts/` — 4 Ubuntu Sans variable font files (latin + latin-ext, all weights and styles)
 - `resources/images/Tag-CoF-Orange-Digital.svg` — Ubuntu logo for the header
 - `resources/skins.ubuntu.styles/ubuntu/` — all custom Ubuntu style overrides, split into modules:
-  - `ubuntu-custom.less` — entry point (fonts, misc fixes) that imports the modules below
+  - `ubuntu-custom.less` — entry point (misc fixes) that imports the modules below
   - `ubuntu-templates.less` — admonition/status/related-article templates
   - `ubuntu-theme.less` — dark theme mixins and overrides
   - `ubuntu-header.less` — header, logo and search box styling
   - `ubuntu-icons.less` — icon colour rules
-  - `ubuntu-fonts.css` — `@font-face` declarations for self-hosted fonts
 - `resources/skins.ubuntu.styles/ubuntu/ubuntu-palette.less` — auto-generated Vanilla Framework colour palette (native `--vf-color-*` custom properties, themed via `.is-light`/`.is-dark`/`.is-paper`)
+
+Cross-skin concerns live in the [UbuntuWiki extension](https://github.com/ubuntu/ubuntu-mediawiki-extension)
+instead: the Ubuntu Sans webfonts and `@font-face` declarations, the base
+typography, the code block copy button, and the Canonical cookie consent
+banner.

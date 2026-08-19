@@ -22,7 +22,10 @@
 	"license-name": "GPL-2.0-or-later",
 	"type": "skin",
 	"requires": {
-		"MediaWiki": ">= 1.44"
+		"MediaWiki": ">= 1.46",
+		"extensions": {
+			"UbuntuWiki": "*"
+		}
 	},
 	"attributes": {
 		"DarkMode": {
@@ -150,7 +153,6 @@
 		}
 	},
 	"Hooks": {
-		"BeforePageDisplay": "UbuntuHooks",
 		"CentralAuthIsUIReloadRecommended": "UbuntuCentralAuthHooks",
 		"GetPreferences": "UbuntuHooks",
 		"LocalUserCreated": "UbuntuHooks",
@@ -227,7 +229,6 @@
 			"styles": [
 				"resources/skins.ubuntu.styles/CSSCustomProperties.less",
 				"resources/skins.ubuntu.styles/skin.less",
-				"resources/skins.ubuntu.styles/ubuntu/ubuntu-fonts.css",
 				"resources/skins.ubuntu.styles/ubuntu/ubuntu-custom.less"
 			],
 			"lessMessages": [
@@ -373,7 +374,6 @@
 				"resources/skins.ubuntu.js/tables.js",
 				"resources/skins.ubuntu.js/languageButton.js",
 				"resources/skins.ubuntu.js/menuTabs.js",
-				"resources/skins.ubuntu.js/codeBlock.js",
 				"resources/skins.ubuntu.js/disableNightModeIfGadget.js",
 				"resources/skins.ubuntu.js/themeToggle.js"
 			],
@@ -403,10 +403,7 @@
 				"skin-theme-toggle-label",
 				"skin-theme-toggle-switch-to-day",
 				"skin-theme-toggle-switch-to-night",
-				"skin-theme-toggle-switch-to-os",
-				"ubuntu-skin-button-copy",
-				"ubuntu-skin-button-copied",
-				"ubuntu-skin-button-copy-captcha-command"
+				"skin-theme-toggle-switch-to-os"
 			]
 		},
 		"skins.ubuntu.legacy.js": {
@@ -422,26 +419,6 @@
 			"dependencies": [
 				"mediawiki.page.ready",
 				"mediawiki.util"
-			]
-		},
-		"skins.ubuntu.cookieConsent": {
-			"styles": [
-				"resources/skins.ubuntu.cookieConsent/vendor/cookie-policy.css"
-			],
-			"noflip": true,
-			"packageFiles": [
-				"resources/skins.ubuntu.cookieConsent/cookieConsent.js",
-				"resources/skins.ubuntu.cookieConsent/cookieConsent-vendor.js",
-				"resources/skins.ubuntu.cookieConsent/vendor/cookie-policy.js",
-				{
-					"name": "resources/skins.ubuntu.cookieConsent/config.json",
-					"config": [
-						"UbuntuCookieConsentEnabled"
-					]
-				}
-			],
-			"messages": [
-				"ubuntu-manage-trackers-button-label"
 			]
 		}
 	},
@@ -619,10 +596,6 @@
 		"UbuntuTableOfContentsCollapseAtCount": {
 			"value": 28,
 			"description": "@var The minimum number of headings required to collapse all headings in the sticky table of contents by default."
-		},
-		"UbuntuCookieConsentEnabled": {
-			"value": false,
-			"description": "@var bool Enable the Canonical cookie policy consent banner. When enabled, loads the cookie-policy library which sets Google Consent Mode v2 defaults to denied and displays a consent dialog. The footer 'Manage your tracker settings' button (added via SkinAddFooterLinks hook in LocalSettings.php) allows users to reconfigure consent."
 		}
 	},
 	"ServiceWiringFiles": [
