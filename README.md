@@ -130,17 +130,10 @@ These are set in `skin.json` under `DefaultUserOptions` and apply to new users o
 
 #### Bundled Assets
 
-- `resources/skins.ubuntu.styles/ubuntu/` — all custom Ubuntu style overrides, split into modules:
-  - `ubuntu-custom.less` — entry point (misc fixes) that imports the modules below
-  - `ubuntu-templates.less` — admonition/status/related-article templates
-  - `ubuntu-header.less` — header, logo and search box styling (keeps the header dark regardless of page theme by re-applying the extension's theme mixins)
-  - `ubuntu-icons.less` — icon colour rules
-  - `ubuntu-body.less` — body/content overrides
-
-Cross-skin concerns live in the [UbuntuWiki extension](https://github.com/ubuntu/ubuntu-mediawiki-extension)
+All theme and branding concerns live in the [UbuntuWiki extension](https://github.com/ubuntu/ubuntu-mediawiki-extension)
 instead: the Ubuntu Sans webfonts and `@font-face` declarations, the base
-typography, the Vanilla Framework palette and Codex token mixins (which this
-skin imports at LESS-compile time via `SkinLessImportPaths`, while the
-extension applies them to the page), the code block copy button, the
-Canonical cookie consent banner, the footer links, and the Ubuntu logo used
-by `$wgLogos`.
+typography, the Vanilla Framework palette and Codex token mixins (applied
+globally by `ext.ubuntu.styles`), the always-dark header and other
+Vector-chrome styling (`zzz.ext.ubuntu.styles.vector`), the footer links,
+the code block copy button, content/template styles, the Canonical cookie
+consent banner, and the Ubuntu logo used by `$wgLogos`.

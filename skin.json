@@ -228,8 +228,7 @@
 			},
 			"styles": [
 				"resources/skins.ubuntu.styles/CSSCustomProperties.less",
-				"resources/skins.ubuntu.styles/skin.less",
-				"resources/skins.ubuntu.styles/ubuntu/ubuntu-custom.less"
+				"resources/skins.ubuntu.styles/skin.less"
 			],
 			"lessMessages": [
 				"parentheses-start",
