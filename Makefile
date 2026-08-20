@@ -14,7 +14,7 @@ setup: LocalSettings.php
 	docker compose cp LocalSettings.php mediawiki:/var/www/html/LocalSettings.php
 	@echo ""
 	@echo "Setup complete!"
-	@echo "  URL:      http://localhost:8080"
+	@echo "  URL:      http://localhost:8081"
 	@echo "  Username: admin"
 	@echo "  Password: UbuntuWiki2026!"
 

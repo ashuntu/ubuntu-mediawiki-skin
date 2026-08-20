@@ -65,7 +65,7 @@ This section includes guidelines for testing the skin locally.
 make setup
 ```
 
-Visit http://localhost:8080 — username: `admin`, password: `UbuntuWiki2026!`
+Visit http://localhost:8081 — username: `admin`, password: `UbuntuWiki2026!`
 
 ### Clean up
 
@@ -130,16 +130,17 @@ These are set in `skin.json` under `DefaultUserOptions` and apply to new users o
 
 #### Bundled Assets
 
-- `resources/images/Tag-CoF-Orange-Digital.svg` — Ubuntu logo for the header
 - `resources/skins.ubuntu.styles/ubuntu/` — all custom Ubuntu style overrides, split into modules:
   - `ubuntu-custom.less` — entry point (misc fixes) that imports the modules below
   - `ubuntu-templates.less` — admonition/status/related-article templates
-  - `ubuntu-theme.less` — dark theme mixins and overrides
-  - `ubuntu-header.less` — header, logo and search box styling
+  - `ubuntu-header.less` — header, logo and search box styling (keeps the header dark regardless of page theme by re-applying the extension's theme mixins)
   - `ubuntu-icons.less` — icon colour rules
-- `resources/skins.ubuntu.styles/ubuntu/ubuntu-palette.less` — auto-generated Vanilla Framework colour palette (native `--vf-color-*` custom properties, themed via `.is-light`/`.is-dark`/`.is-paper`)
+  - `ubuntu-body.less` — body/content overrides
 
 Cross-skin concerns live in the [UbuntuWiki extension](https://github.com/ubuntu/ubuntu-mediawiki-extension)
 instead: the Ubuntu Sans webfonts and `@font-face` declarations, the base
-typography, the code block copy button, and the Canonical cookie consent
-banner.
+typography, the Vanilla Framework palette and Codex token mixins (which this
+skin imports at LESS-compile time via `SkinLessImportPaths`, while the
+extension applies them to the page), the code block copy button, the
+Canonical cookie consent banner, the footer links, and the Ubuntu logo used
+by `$wgLogos`.

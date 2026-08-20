@@ -7,7 +7,7 @@ if (!defined('MEDIAWIKI')) {
 
 # Site
 $wgSitename = "Ubuntu Wiki";
-$wgServer = "http://localhost:8080";
+$wgServer = "http://localhost:8081";
 $wgScriptPath = "";
 $wgResourceBasePath = $wgScriptPath;
 $wgLanguageCode = "en";
@@ -36,11 +36,11 @@ wfLoadExtension('UbuntuWiki');
 wfLoadSkin('Ubuntu');
 $wgDefaultSkin = 'ubuntu';
 
-# Logo — uses the Ubuntu logo bundled in the skin.
+# Logo — uses the Ubuntu logo shipped by the UbuntuWiki extension.
 # Replace with your own image path to use a custom logo.
 $wgLogos = [
-    '1x'   => "$wgResourceBasePath/skins/Ubuntu/resources/images/Tag-CoF-Orange-Digital.svg",
-    'icon' => "$wgResourceBasePath/skins/Ubuntu/resources/images/Tag-CoF-Orange-Digital.svg",
+    '1x'   => "$wgResourceBasePath/extensions/UbuntuWiki/resources/images/Tag-CoF-Orange-Digital.svg",
+    'icon' => "$wgResourceBasePath/extensions/UbuntuWiki/resources/images/Tag-CoF-Orange-Digital.svg",
 ];
 
 unset($wgFooterIcons['poweredby']);
