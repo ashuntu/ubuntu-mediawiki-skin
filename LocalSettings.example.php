@@ -7,7 +7,7 @@ if (!defined('MEDIAWIKI')) {
 
 # Site
 $wgSitename = "Ubuntu Wiki";
-$wgServer = "http://localhost:8080";
+$wgServer = "http://localhost:8081";
 $wgScriptPath = "";
 $wgResourceBasePath = $wgScriptPath;
 $wgLanguageCode = "en";
@@ -29,14 +29,18 @@ $wgEnableUploads = false;
 $wgUseInstantCommons = true;
 
 # Skin
+# The UbuntuWiki extension is required by the Ubuntu skin. It provides shared
+# styles, webfonts, the cookie consent banner, footer links, and code block
+# enhancements. See https://github.com/ubuntu/ubuntu-mediawiki-extension
+wfLoadExtension('UbuntuWiki');
 wfLoadSkin('Ubuntu');
 $wgDefaultSkin = 'ubuntu';
 
-# Logo — uses the Ubuntu logo bundled in the skin.
+# Logo — uses the Ubuntu logo shipped by the UbuntuWiki extension.
 # Replace with your own image path to use a custom logo.
 $wgLogos = [
-    '1x'   => "$wgResourceBasePath/skins/Ubuntu/resources/images/Tag-CoF-Orange-Digital.svg",
-    'icon' => "$wgResourceBasePath/skins/Ubuntu/resources/images/Tag-CoF-Orange-Digital.svg",
+    '1x'   => "$wgResourceBasePath/extensions/UbuntuWiki/resources/images/Tag-CoF-Orange-Digital.svg",
+    'icon' => "$wgResourceBasePath/extensions/UbuntuWiki/resources/images/Tag-CoF-Orange-Digital.svg",
 ];
 
 unset($wgFooterIcons['poweredby']);
@@ -48,30 +52,20 @@ $wgUbuntuNightMode = [
 ];
 
 # Cookie consent & Google Tag Manager
-# Enable the Canonical cookie policy consent banner.
+# Enable the Canonical cookie policy consent banner (provided by the UbuntuWiki
+# extension, which also adds a "Manage your tracker settings" footer link).
 $wgUbuntuCookieConsentEnabled = true;
 
 # Google Tag Manager container ID (leave empty/null to disable GTM).
 # The GTM snippet is injected via the BeforePageDisplay hook below.
 $wgGTMContainerID = '';
 
-# Footer "Manage your tracker settings" button — allows users to reconfigure consent.
-$wgHooks['SkinAddFooterLinks'][] = function (MediaWiki\Skin\Skin $skin, string $key, array &$footerlinks) {
-    if ($key === 'places') {
-        $footerlinks['cookie-settings'] = MediaWiki\Html\Html::element('button', [
-            'class' => 'js-revoke-cookie-manager',
-            'type'  => 'button',
-            'style' => 'cursor:pointer;background:none;border:none;padding:0;color:inherit;',
-        ], $skin->msg('ubuntu-manage-trackers-button-label')->text());
-    }
-};
-
 # Google Tag Manager injection.
-# The cookie-policy vendor IIFE is loaded by the skin's ResourceLoader module
-# (skins.ubuntu.cookieConsent). Its addGoogleConsentMode() sets
-# gtag('consent','default',...) with all categories denied. The GTM snippet
-# must load AFTER the vendor so that consent defaults are set before GTM
-# initialises. When the user accepts cookies, the vendor library calls
+# The cookie-policy vendor IIFE is loaded by the UbuntuWiki extension's
+# ResourceLoader module (ext.ubuntu.cookieConsent). Its addGoogleConsentMode()
+# sets gtag('consent','default',...) with all categories denied. The GTM
+# snippet must load AFTER the vendor so that consent defaults are set before
+# GTM initialises. When the user accepts cookies, the vendor library calls
 # gtag('consent','update',...) automatically.
 $wgHooks['BeforePageDisplay'][] = function (MediaWiki\Output\OutputPage $out, MediaWiki\Skin\Skin $skin) use (&$wgGTMContainerID) {
     if ($wgGTMContainerID) {

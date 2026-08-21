@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "devDependencies": {
-        "@canonical/cookie-policy": "^3.10.0"
-    }
-}

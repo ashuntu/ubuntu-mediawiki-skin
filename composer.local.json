@@ -1,14 +1,11 @@
 {
 	"repositories": [
 		{
-			"type": "path",
-			"url": "/ubuntu-skin",
-			"options": {
-				"symlink": false
-			}
+			"type": "vcs",
+			"url": "https://github.com/ubuntu/ubuntu-mediawiki-extension.git"
 		}
 	],
 	"require": {
-		"ubuntu/mediawiki-ubuntu-skin": "*"
+		"ubuntu/mediawiki-ubuntu-extension": "*@dev"
 	}
 }
