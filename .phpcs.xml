@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <ruleset>
-    <rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki" />
+    <rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
+        <!-- LocalSettings*.php are deployment config, not shipped code -->
+        <exclude-pattern>LocalSettings\.php</exclude-pattern>
+        <exclude-pattern>LocalSettings\.example\.php</exclude-pattern>
+    </rule>
     <file>.</file>
     <arg name="extensions" value="php" />
     <arg name="encoding" value="UTF-8" />

@@ -29,8 +29,10 @@ function markActiveMainMenuItem() {
 		'#mw-panel .mw-list-item a, #vector-main-menu-pinned-container .mw-list-item a'
 	);
 	menuItems.forEach( ( link ) => {
-		if ( link.href === currentHref ) {
-			link.closest( '.mw-list-item' ).classList.add( 'mw-list-item-active' );
+		const anchor = /** @type {HTMLAnchorElement} */ ( link );
+		const item = anchor.closest( '.mw-list-item' );
+		if ( anchor.href === currentHref && item ) {
+			item.classList.add( 'mw-list-item-active' );
 		}
 	} );
 }
@@ -156,7 +158,7 @@ function init( window ) {
 init( window );
 if (
 	document.readyState === 'interactive' ||
-  	document.readyState === 'complete'
+	document.readyState === 'complete'
 ) {
 	main( window );
 } else {
