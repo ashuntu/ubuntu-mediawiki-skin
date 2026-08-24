@@ -2,9 +2,9 @@
 namespace MediaWiki\Skins\Ubuntu\Components;
 
 use MediaWiki\Config\Config;
+use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Skins\Ubuntu\Constants;
 use MediaWiki\Skins\Ubuntu\FeatureManagement\FeatureManager;
-use MessageLocalizer;
 
 /**
  * VectorComponentTableOfContents component

@@ -1,9 +1,9 @@
 <?php
 namespace MediaWiki\Skins\Ubuntu\Components;
 
+use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Skins\Ubuntu\Constants;
 use MediaWiki\Skins\Ubuntu\FeatureManagement\FeatureManager;
-use MessageLocalizer;
 
 /**
  * VectorComponentPageTools component

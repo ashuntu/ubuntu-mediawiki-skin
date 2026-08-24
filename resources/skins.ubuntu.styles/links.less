@@ -15,7 +15,6 @@ a:where( .new:not( [ role='button' ] ) ) {
 
 // External links
 // Use of `a` element selector for limiting generic class scope due to `.external` widespread usage.
-/* stylelint-disable selector-max-specificity */
 .mw-parser-output {
 	a {
 		// Deal with long links (T327334, inspired by Minerva solution T62387)
@@ -39,14 +38,12 @@ a:where( .new:not( [ role='button' ] ) ) {
 		}
 	}
 }
-/* stylelint-enable selector-max-specificity */
 
 /**
  * The following styles are copied from content.links.less
  */
 
 /* self links */
-/* stylelint-disable selector-max-specificity */
 a.mw-selflink {
 	color: inherit;
 	font-weight: bold;
@@ -72,4 +69,3 @@ a.mw-selflink {
 	background: none !important; /* stylelint-disable-line declaration-no-important */
 	padding: 0 !important; /* stylelint-disable-line declaration-no-important */
 }
-/* stylelint-enable selector-max-specificity */

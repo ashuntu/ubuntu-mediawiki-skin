@@ -25,6 +25,12 @@
 	"support": {
 		"source": "https://github.com/ubuntu/ubuntu-mediawiki-skin"
 	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/ubuntu/ubuntu-mediawiki-extension.git"
+		}
+	],
 	"require": {
 		"composer/installers": ">1.0.12",
 		"ubuntu/mediawiki-ubuntu-extension": "*@dev"

@@ -23,7 +23,8 @@
 			"Winston Sung",
 			"Xiplus",
 			"捍粵者",
-			"魔琴"
+			"魔琴",
+			"Peterxy"
 		]
 	},
 	"skinname-vector": "舊版Vector（2010）",
@@ -75,9 +76,6 @@
 	"vector-toc-label": "目次",
 	"vector-toc-beginning": "（首段）",
 	"vector-toc-toggle-button-label": "切換 $1 子章節",
-	"vector-anon-user-menu-pages": "用於已登出編輯者的頁面",
-	"vector-anon-user-menu-pages-learn": "了解更多",
-	"vector-anon-user-menu-pages-label": "了解更多有關編輯",
 	"vector-main-menu-tooltip": "主選單",
 	"vector-toc-menu-tooltip": "目次",
 	"vector-toc-collapsible-button-label": "切換目次",

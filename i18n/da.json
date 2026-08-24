@@ -61,9 +61,6 @@
 	"vector-toc-label": "Indhold",
 	"vector-toc-beginning": "Indledning",
 	"vector-toc-toggle-button-label": "Vis/skjul underafsnit $1",
-	"vector-anon-user-menu-pages": "Sider for redaktører som er logget ud",
-	"vector-anon-user-menu-pages-learn": "lær mere",
-	"vector-anon-user-menu-pages-label": "Læs mere om redigering",
 	"vector-main-menu-tooltip": "Hovedmenu",
 	"vector-toc-menu-tooltip": "Indholdsfortegnelse",
 	"vector-toc-collapsible-button-label": "Vis/skjul indholdsfortegnelsen",
@@ -91,5 +88,6 @@
 	"vector-night-mode-issue-reporting-link-label": "Rapporter et problem med mørk tilstand",
 	"vector-night-mode-issue-reporting-link-notification": "Rapport modtaget!",
 	"vector-night-mode-issue-reporting-preload-title": "$1 mørk tilstandsfejl",
+	"vector-night-mode-issue-reporting-preload-content": "<!--\nInstruktioner\nBeskriv venligst, hvordan farverne i dark mode gør Wikipedia vanskelig at læse.\nAngiv venligst den del af artiklen, hvor du fandt problemet.\n--> \n'''Problembeskrivelse'''",
 	"vector-night-mode-beta-tag": "(beta)"
 }

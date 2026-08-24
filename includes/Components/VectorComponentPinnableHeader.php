@@ -1,7 +1,7 @@
 <?php
 namespace MediaWiki\Skins\Ubuntu\Components;
 
-use MessageLocalizer;
+use MediaWiki\Language\MessageLocalizer;
 
 /**
  * VectorComponentPinnableHeader component

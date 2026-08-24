@@ -3,7 +3,8 @@
 namespace MediaWiki\Skins\Ubuntu;
 
 use MediaWiki\Html\Html;
-use MediaWiki\Languages\LanguageConverterFactory;
+use MediaWiki\Language\LanguageConverterFactory;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Skin\SkinMustache;
 use MediaWiki\Skin\SkinTemplate;
@@ -358,7 +359,7 @@ class SkinUbuntu extends SkinMustache {
 				'data-page-titlebar-toc-dropdown' => new VectorComponentDropdown(
 					'vector-page-titlebar-toc',
 					// label
-					$this->msg( 'vector-toc-collapsible-button-label' )->text(),
+				$this->msg( 'vector-toc-collapsible-button-label' )->text(),
 					// class
 					'vector-page-titlebar-toc vector-button-flush-left',
 					// icon
@@ -374,7 +375,7 @@ class SkinUbuntu extends SkinMustache {
 				'data-sticky-header-toc-dropdown' => new VectorComponentDropdown(
 					'vector-sticky-header-toc',
 					// label
-					$this->msg( 'vector-toc-collapsible-button-label' )->text(),
+				$this->msg( 'vector-toc-collapsible-button-label' )->text(),
 					// class
 					'mw-portlet mw-portlet-sticky-header-toc vector-sticky-header-toc vector-button-flush-left',
 					// icon
@@ -414,8 +415,8 @@ class SkinUbuntu extends SkinMustache {
 			'data-vector-user-links' => new VectorComponentUserLinks(
 				$localizer,
 				$user,
+				MediaWikiServices::getInstance()->getUserNameUtils(),
 				$portlets,
-				$this->getOptions()['link'],
 				$userPage[ 'icon' ] ?? ''
 			),
 			'data-lang-dropdown' => $langData ? new VectorComponentLanguageDropdown(
