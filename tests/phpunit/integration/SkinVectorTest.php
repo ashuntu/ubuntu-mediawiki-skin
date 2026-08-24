@@ -1,9 +1,9 @@
 <?php
-namespace MediaWiki\Skins\Vector\Tests\Integration;
+namespace MediaWiki\Skins\Ubuntu\Tests\Integration;
 
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Page\LinkCache;
-use MediaWiki\Skins\Vector\SkinVectorLegacy;
+use MediaWiki\Skins\Ubuntu\SkinVectorLegacy;
 use MediaWiki\Tests\Unit\Permissions\MockAuthorityTrait;
 use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\Title\Title;
@@ -37,13 +37,22 @@ class SkinVectorTest extends MediaWikiIntegrationTestCase {
 	 * @return SkinVectorLegacy
 	 */
 	private function createVectorTemplateObject() {
-		$skinFactory = $this->getServiceContainer()->getSkinFactory();
-		$template = $skinFactory->makeSkin( 'vector' );
-		return $template;
+		// The Ubuntu fork does not register the legacy 'vector' skin name,
+		// so construct the class directly instead of using SkinFactory.
+		return new SkinVectorLegacy(
+			$this->getServiceContainer()->getLanguageConverterFactory(),
+			[
+				'name' => 'vector',
+				'template' => 'skin-legacy',
+				'templateDirectory' => 'includes/templates',
+				'responsive' => false,
+				'link' => [ 'text-wrapper' => [ 'tag' => 'span' ] ],
+			]
+		);
 	}
 
 	/**
-	 * @covers \MediaWiki\Skins\Vector\SkinVectorLegacy::getTemplateData
+	 * @covers \MediaWiki\Skins\Ubuntu\SkinVectorLegacy::getTemplateData
 	 */
 	public function testGetTemplateData() {
 		$this->setService( 'LinkCache', $this->createMock( LinkCache::class ) );
@@ -141,7 +150,7 @@ class SkinVectorTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
-	 * @covers \MediaWiki\Skins\Vector\SkinVectorLegacy::runOnSkinTemplateNavigationHooks
+	 * @covers \MediaWiki\Skins\Ubuntu\SkinVectorLegacy::runOnSkinTemplateNavigationHooks
 	 */
 	public function testTempUserCreateAccountLink() {
 		$this->enableAutoCreateTempUser();
@@ -209,11 +218,11 @@ class SkinVectorTest extends MediaWikiIntegrationTestCase {
 	 */
 	private static function enableLanguageInHeaderFeatureConfig(): array {
 		return [
-			'VectorLanguageInHeader' => [
+			'UbuntuLanguageInHeader' => [
 				'logged_in' => true,
 				'logged_out' => true
 			],
-			'VectorLanguageInMainPageHeader' => [
+			'UbuntuLanguageInMainPageHeader' => [
 				'logged_in' => false,
 				'logged_out' => false
 			],
@@ -245,7 +254,7 @@ class SkinVectorTest extends MediaWikiIntegrationTestCase {
 			],
 			'When the language in header feature is disabled, do not show alert' => [
 				[
-					'VectorLanguageInHeader' => [
+					'UbuntuLanguageInHeader' => [
 						'logged_in' => false,
 						'logged_out' => false
 					],
@@ -265,7 +274,7 @@ class SkinVectorTest extends MediaWikiIntegrationTestCase {
 			],
 			'When it is a main page, header feature is disabled, and there are languages, do not show alert' => [
 				[
-					'VectorLanguageInHeader' => [
+					'UbuntuLanguageInHeader' => [
 						'logged_in' => false,
 						'logged_out' => false
 					],

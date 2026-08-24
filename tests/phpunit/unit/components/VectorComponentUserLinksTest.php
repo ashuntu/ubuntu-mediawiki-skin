@@ -19,18 +19,18 @@
  * @since 1.35
  */
 
-namespace MediaWiki\Skins\Vector\Tests\Unit\Components;
+namespace MediaWiki\Skins\Ubuntu\Tests\Unit\Components;
 
 use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Message\Message;
-use MediaWiki\Skins\Vector\Components\VectorComponentUserLinks;
+use MediaWiki\Skins\Ubuntu\Components\VectorComponentUserLinks;
 use MediaWiki\User\UserIdentity;
 use MediaWiki\User\UserNameUtils;
 
 /**
  * @group Vector
  * @group Components
- * @coversDefaultClass \MediaWiki\Skins\Vector\Components\VectorComponentUserLinks
+ * @coversDefaultClass \MediaWiki\Skins\Ubuntu\Components\VectorComponentUserLinks
  */
 class VectorComponentUserLinksTest extends \MediaWikiUnitTestCase {
 	private const ICON = 'testAvatar';

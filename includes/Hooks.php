@@ -1,6 +1,6 @@
 <?php
 
-namespace MediaWiki\Skins\Vector;
+namespace MediaWiki\Skins\Ubuntu;
 
 use MediaWiki\Auth\Hook\LocalUserCreatedHook;
 use MediaWiki\Config\Config;
@@ -9,16 +9,16 @@ use MediaWiki\Preferences\Hook\GetPreferencesHook;
 use MediaWiki\ResourceLoader as RL;
 use MediaWiki\Skin\Hook\SkinPageReadyConfigHook;
 use MediaWiki\Skin\SkinTemplate;
-use MediaWiki\Skins\Vector\Hooks\HookRunner;
+use MediaWiki\Skins\Ubuntu\Hooks\HookRunner;
 use MediaWiki\User\Options\UserOptionsManager;
 use MediaWiki\User\User;
 
 /**
- * Presentation hook handlers for Vector skin.
+ * Presentation hook handlers for Ubuntu skin.
  *
  * Hook handler method names should be in the form of:
  *	on<HookName>()
- * @package Vector
+ * @package Ubuntu
  * @internal
  */
 class Hooks implements
@@ -41,12 +41,13 @@ class Hooks implements
 	private static function isVectorSkin( string $skinName ): bool {
 		return (
 			$skinName === Constants::SKIN_NAME_LEGACY ||
-			$skinName === Constants::SKIN_NAME_MODERN
+			$skinName === Constants::SKIN_NAME_MODERN ||
+			$skinName === Constants::SKIN_NAME_UBUNTU
 		);
 	}
 
 	/**
-	 * Generates config variables for skins.vector.search Resource Loader module (defined in
+	 * Generates config variables for skins.ubuntu.search Resource Loader module (defined in
 	 * skin.json).
 	 *
 	 * @param RL\Context $context
@@ -65,7 +66,7 @@ class Hooks implements
 		$hookRunner = new HookRunner( MediaWikiServices::getInstance()->getHookContainer() );
 		$hookRunner->onVectorSearchResourceLoaderConfig( $additionalSearchOptions );
 
-		$vectorTypeahead = $config->get( 'VectorTypeahead' );
+		$vectorTypeahead = $config->get( 'UbuntuTypeahead' );
 		$vectorTypeahead['options'] = array_merge( $vectorTypeahead['options'], $additionalSearchOptions );
 		return $vectorTypeahead;
 	}
@@ -83,7 +84,7 @@ class Hooks implements
 	public function onSkinPageReadyConfig(
 		RL\Context $context,
 		array &$config
-	) {
+	): void {
 		// It's better to exit before any additional check
 		if ( !self::isVectorSkin( $context->getSkin() ) ) {
 			return;
@@ -92,9 +93,9 @@ class Hooks implements
 		// This allows us to use the new Vue implementation.
 		// Context has no knowledge of legacy / modern Vector
 		// and from its point of view they are the same thing.
-		// Please see the modules `skins.vector.js` and `skins.vector.legacy.js`
+		// Please see the modules `skins.ubuntu.js` and `skins.ubuntu.legacy.js`
 		// for the wire up of search.
-		$config['searchModule'] = 'skins.vector.search';
+		$config['searchModule'] = 'skins.ubuntu.search';
 	}
 
 	/**
@@ -313,7 +314,7 @@ class Hooks implements
 
 		$title = $sk->getRelevantTitle();
 		if (
-			$sk->getConfig()->get( 'VectorUseIconWatch' ) &&
+			$sk->getConfig()->get( 'UbuntuUseIconWatch' ) &&
 			$title && $title->canExist() &&
 			// Only move the watchstar if bookmark not detected
 			// T402352
@@ -322,7 +323,7 @@ class Hooks implements
 			self::updateActionsMenu( $content_navigation );
 		}
 
-		if ( $skinName === Constants::SKIN_NAME_MODERN ) {
+		if ( $skinName === Constants::SKIN_NAME_MODERN || $skinName === Constants::SKIN_NAME_UBUNTU ) {
 			self::createMoreOverflowMenu( $content_navigation );
 		}
 

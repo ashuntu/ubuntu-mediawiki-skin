@@ -19,24 +19,24 @@
  * @since 1.35
  */
 
-namespace MediaWiki\Skins\Vector\Tests\Unit\Components;
+namespace MediaWiki\Skins\Ubuntu\Tests\Unit\Components;
 
 use MediaWiki\Config\HashConfig;
 use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Message\Message;
-use MediaWiki\Skins\Vector\Components\VectorComponentTableOfContents;
-use MediaWiki\Skins\Vector\FeatureManagement\FeatureManager;
+use MediaWiki\Skins\Ubuntu\Components\VectorComponentTableOfContents;
+use MediaWiki\Skins\Ubuntu\FeatureManagement\FeatureManager;
 
 /**
  * @group Vector
  * @group Components
- * @coversDefaultClass \MediaWiki\Skins\Vector\Components\VectorComponentTableOfContents
+ * @coversDefaultClass \MediaWiki\Skins\Ubuntu\Components\VectorComponentTableOfContents
  */
 class VectorComponentTableOfContentsTest extends \MediaWikiUnitTestCase {
 
 	public static function provideGetTocData() {
 		$config = [
-			'VectorTableOfContentsCollapseAtCount' => 1
+			'UbuntuTableOfContentsCollapseAtCount' => 1
 		];
 		$tocData = [
 			'number-section-count' => 2,
@@ -108,7 +108,7 @@ class VectorComponentTableOfContentsTest extends \MediaWikiUnitTestCase {
 		$expectedConfigData = [
 			'vector-is-collapse-sections-enabled' =>
 				count( $tocData['array-sections'] ) > 3 &&
-				$tocData[ 'number-section-count' ] >= $config[ 'VectorTableOfContentsCollapseAtCount' ],
+				$tocData[ 'number-section-count' ] >= $config[ 'UbuntuTableOfContentsCollapseAtCount' ],
 			'id' => 'vector-toc',
 			'data-pinnable-header' => [
 				'is-pinned' => true,
@@ -135,7 +135,7 @@ class VectorComponentTableOfContentsTest extends \MediaWikiUnitTestCase {
 			// When number of multiple sections is lower than configured value
 			[
 				$tocData,
-				array_merge( $config, [ 'VectorTableOfContentsCollapseAtCount' => 3 ] ),
+				array_merge( $config, [ 'UbuntuTableOfContentsCollapseAtCount' => 3 ] ),
 				// 'vector-is-collapse-sections-enabled' value is false
 				array_merge( $tocData, $expectedConfigData, [
 					'vector-is-collapse-sections-enabled' => false
@@ -144,14 +144,14 @@ class VectorComponentTableOfContentsTest extends \MediaWikiUnitTestCase {
 			// When number of multiple sections is equal to the configured value
 			[
 				$tocData,
-				array_merge( $config, [ 'VectorTableOfContentsCollapseAtCount' => 2 ] ),
+				array_merge( $config, [ 'UbuntuTableOfContentsCollapseAtCount' => 2 ] ),
 				// 'vector-is-collapse-sections-enabled' value is true
 				array_merge( $tocData, $expectedConfigData )
 			],
 			// When number of multiple sections is higher than configured value
 			[
 				$tocData,
-				array_merge( $config, [ 'VectorTableOfContentsCollapseAtCount' => 1 ] ),
+				array_merge( $config, [ 'UbuntuTableOfContentsCollapseAtCount' => 1 ] ),
 				// 'vector-is-collapse-sections-enabled' value is true
 				array_merge( $tocData, $expectedConfigData )
 			],
