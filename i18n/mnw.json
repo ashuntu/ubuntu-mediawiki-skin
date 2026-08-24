@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Aue Nai",
 			"Htawmonzel",
 			"咽頭べさ"
 		]
@@ -17,6 +18,7 @@
 	"vector-view-edit": "ပလေဝ်ဒါန်",
 	"vector-view-history": "ထ္ၜး လၟေင်အပြံင်အလှာဲ",
 	"vector-view-view": "ဗှ်",
+	"vector-jumptocontent": "ထလာ်တိတ်အာနကဵုမာတိကာညိ",
 	"vector-more-actions": "ဆက်ဗှ်",
 	"vector-appearance-label": "မံက်ပြာကတ်",
 	"vector-feature-limited-width-name": "အနာံ",
@@ -33,7 +35,6 @@
 	"skin-theme-exclusion-notice": "မုက်လိက်တဏအ်ဝွံမနွံမံၚ်ပ္ဍဲနဲကၠောန်လျးတၟးဟေၚ်ရ။",
 	"vector-toc-label": "မာတိကာ",
 	"vector-toc-beginning": "စနူကၠာ",
-	"vector-anon-user-menu-pages-learn": "ထပ်ဆက်လ္ၚတ်အာ",
 	"vector-main-menu-tooltip": "မာတိကာတမ်",
 	"vector-toc-menu-tooltip": "မာတိကာ",
 	"vector-toc-collapsible-button-label": "မလှာဲစရၚ်နကဵုမာတိကာဂမၠိုၚ်",

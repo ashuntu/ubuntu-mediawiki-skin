@@ -1,18 +1,18 @@
 <?php
 
-namespace MediaWiki\Skins\Ubuntu;
+namespace MediaWiki\Skins\Vector;
 
-use MediaWiki\Languages\LanguageConverterFactory;
-use MediaWiki\Skin\SkinComponentUtils;
+use MediaWiki\Exception\MWException;
+use MediaWiki\Language\LanguageConverterFactory;
+use MediaWiki\Skin\Components\SkinComponentUtils;
 use MediaWiki\Skin\SkinMustache;
 use MediaWiki\Skin\SkinTemplate;
-use MediaWiki\Skins\Ubuntu\Components\VectorComponentSearchBox;
-use MediaWiki\Skins\Ubuntu\Components\VectorComponentVariants;
-use MWException;
+use MediaWiki\Skins\Vector\Components\VectorComponentSearchBox;
+use MediaWiki\Skins\Vector\Components\VectorComponentVariants;
 
 /**
  * @ingroup Skins
- * @package Ubuntu
+ * @package Vector
  * @internal
  */
 class SkinVectorLegacy extends SkinMustache {
@@ -220,7 +220,7 @@ class SkinVectorLegacy extends SkinMustache {
 
 		// SkinVector sometimes serves new Vector as part of removing the
 		// skin version user preference. To avoid T302461 we need to unset it here.
-		// This shouldn't be run on SkinUbuntu.
+		// This shouldn't be run on SkinVector22.
 		unset( $parentData['data-toc'] );
 		return $parentData;
 	}

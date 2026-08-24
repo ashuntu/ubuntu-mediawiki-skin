@@ -1,42 +1,39 @@
 {
-	"name": "ubuntu/mediawiki-ubuntu-skin",
+	"name": "mediawiki/vector-skin",
 	"type": "mediawiki-skin",
-	"description": "Ubuntu MediaWiki skin based on Vector 2022",
+	"description": "Modern version of the MonoBook skin",
 	"keywords": [
 		"wiki",
 		"MediaWiki",
 		"skin"
 	],
+	"homepage": "https://www.mediawiki.org/wiki/Skin:Vector",
 	"license": "GPL-2.0-or-later",
 	"authors": [
 		{
-			"name": "Trevor Parscal",
-			"role": "Original author"
+			"name": "Trevor Parscal"
 		},
 		{
-			"name": "Roan Kattouw",
-			"role": "Original author"
-		},
-		{
-			"name": "Ubuntu Developers",
-			"role": "Maintainer"
+			"name": "Roan Kattouw"
 		}
 	],
 	"support": {
-		"source": "https://github.com/ubuntu/ubuntu-mediawiki-skin"
+		"wiki": "https://www.mediawiki.org/wiki/Skin:Vector",
+		"forum": "https://www.mediawiki.org/wiki/Skin_talk:Vector",
+		"source": "http://gerrit.wikimedia.org/g/mediawiki/skins/Vector",
+		"irc": "irc://irc.libera.chat/mediawiki"
 	},
 	"require": {
-		"composer/installers": ">1.0.12",
-		"ubuntu/mediawiki-ubuntu-extension": "*@dev"
+		"composer/installers": ">1.0.12"
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-main": "1.x-dev"
+			"dev-master": "1.x-dev"
 		},
-		"installer-name": "Ubuntu"
+		"installer-name": "Vector"
 	},
 	"require-dev": {
-		"mediawiki/mediawiki-codesniffer": "52.0.0",
+		"mediawiki/mediawiki-codesniffer": "50.0.0",
 		"mediawiki/mediawiki-phan-config": "0.20.0",
 		"mediawiki/minus-x": "2.0.1",
 		"php-parallel-lint/php-console-highlighter": "1.0.0",
@@ -52,7 +49,7 @@
 			"@phpcs",
 			"minus-x check ."
 		],
-		"test:size": "@composer -d ../../ phpunit skins/Ubuntu/tests/phpunit/structure/BundleSizeTest.php",
+		"test:size": "@composer -d ../../ phpunit skins/Vector/tests/phpunit/structure/BundleSizeTest.php",
 		"phan": "phan -d . --long-progress-bar",
 		"phpcs": "phpcs -sp --cache"
 	},

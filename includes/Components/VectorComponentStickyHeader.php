@@ -1,8 +1,8 @@
 <?php
 namespace MediaWiki\Skins\Ubuntu\Components;
 
+use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Message\Message;
-use MessageLocalizer;
 
 /**
  * VectorComponentStickyHeader component

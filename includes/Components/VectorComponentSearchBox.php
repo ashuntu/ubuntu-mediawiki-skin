@@ -2,9 +2,9 @@
 namespace MediaWiki\Skins\Ubuntu\Components;
 
 use MediaWiki\Config\Config;
+use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Linker\Linker;
 use MediaWiki\Title\Title;
-use MessageLocalizer;
 
 /**
  * VectorSearchBox component

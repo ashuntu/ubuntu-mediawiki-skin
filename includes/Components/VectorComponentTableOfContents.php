@@ -1,10 +1,10 @@
 <?php
-namespace MediaWiki\Skins\Ubuntu\Components;
+namespace MediaWiki\Skins\Vector\Components;
 
 use MediaWiki\Config\Config;
-use MediaWiki\Skins\Ubuntu\Constants;
-use MediaWiki\Skins\Ubuntu\FeatureManagement\FeatureManager;
-use MessageLocalizer;
+use MediaWiki\Language\MessageLocalizer;
+use MediaWiki\Skins\Vector\Constants;
+use MediaWiki\Skins\Vector\FeatureManagement\FeatureManager;
 
 /**
  * VectorComponentTableOfContents component
@@ -66,7 +66,7 @@ class VectorComponentTableOfContents implements VectorComponent {
 			'vector-is-collapse-sections-enabled' =>
 				count( $this->tocData['array-sections'] ) > 3 &&
 				$this->tocData[ 'number-section-count'] >= $this->config->get(
-					'UbuntuTableOfContentsCollapseAtCount'
+					'VectorTableOfContentsCollapseAtCount'
 				),
 			'data-pinnable-header' => $this->pinnableHeader->getTemplateData(),
 		] );
