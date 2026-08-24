@@ -1,0 +1,50 @@
+name: QA & sanity checks
+
+on:
+  push:
+    branches: [main]
+    tags: ["*"]
+  pull_request:
+
+jobs:
+  php:
+    name: PHP QA (${{ matrix.php }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ["8.3", "8.5"] # Defaults for 24.04 and 26.04
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v4
+
+      - name: Run PHP checks (parallel-lint, phpcs, minus-x)
+        run: composer test
+
+  node:
+    name: JS QA (lint, tsc, jest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      # Canonical upstream gate: lint && tsc && jest (same as the pre-commit hook)
+      - name: Run Node checks
+        run: npm test
