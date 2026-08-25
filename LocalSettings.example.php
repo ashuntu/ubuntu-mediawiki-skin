@@ -56,47 +56,11 @@ $wgUbuntuNightMode = [
 # extension, which also adds a "Manage your tracker settings" footer link).
 $wgUbuntuCookieConsentEnabled = true;
 
-# Google Tag Manager container ID (leave empty/null to disable GTM).
-# The GTM snippet is injected via the BeforePageDisplay hook below.
-$wgGTMContainerID = '';
-
-# Google Tag Manager injection.
-# The cookie-policy vendor IIFE is loaded by the UbuntuWiki extension's
-# ResourceLoader module (ext.ubuntu.cookieConsent). Its addGoogleConsentMode()
-# sets gtag('consent','default',...) with all categories denied. The GTM
-# snippet must load AFTER the vendor so that consent defaults are set before
-# GTM initialises. When the user accepts cookies, the vendor library calls
-# gtag('consent','update',...) automatically.
-$wgHooks['BeforePageDisplay'][] = function (MediaWiki\Output\OutputPage $out, MediaWiki\Skin\Skin $skin) use (&$wgGTMContainerID) {
-    if ($wgGTMContainerID) {
-        $id = htmlspecialchars($wgGTMContainerID, ENT_QUOTES);
-
-        // Google Tag Manager — official <head> snippet
-        // https://developers.google.com/tag-manager/quickstart
-        $out->addHeadItem(
-            'gtm-head',
-            <<<HTML
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','{$id}');</script>
-<!-- End Google Tag Manager -->
-HTML
-        );
-
-        // Google Tag Manager — official <noscript> body snippet
-        $out->addHTML(
-            <<<HTML
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={$id}"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-HTML
-        );
-    }
-};
+# Google Tag Manager container ID (leave empty to disable). The extension
+# injects the GTM snippets itself; when the consent banner is enabled, gtag
+# consent defaults are set to denied inline ahead of GTM, so consent is
+# established before GTM initialises.
+$wgUbuntuGTMContainerID = '';
 
 # Extensions
 wfLoadExtension('WikiEditor');
