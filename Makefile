@@ -1,4 +1,6 @@
-.PHONY: setup deploy up down clean extension
+.DEFAULT_GOAL := help
+
+.PHONY: help setup deploy up down clean extension
 
 # Password for the initial admin account created by `make setup`
 ADMIN_PASSWORD := UbuntuWiki2026!
@@ -14,6 +16,14 @@ COMPOSE := docker compose
 MW := $(COMPOSE) exec mediawiki
 MW_T := $(COMPOSE) exec -T mediawiki
 
+## help: Show this help (default target)
+help:
+	@echo "Usage: make <target>"
+	@echo ""
+	@echo "Targets:"
+	@grep -Eh '^## [a-zA-Z_-]+: ' $(MAKEFILE_LIST) | sed -e 's/^## //' | sort | awk -F': ' '{printf "  %-16s %s\n", $$1, $$2}'
+
+## setup: Create and initialize the wiki from scratch (installs MediaWiki)
 setup: LocalSettings.php
 	$(COMPOSE) up -d
 	$(MAKE) --no-print-directory extension
@@ -32,17 +42,21 @@ setup: LocalSettings.php
 	@echo "  Username: admin"
 	@echo "  Password: $(ADMIN_PASSWORD)"
 
+## deploy: Copy LocalSettings.php into the container
 deploy: LocalSettings.php
 	$(COMPOSE) cp LocalSettings.php mediawiki:/var/www/html/LocalSettings.php
 
+## up: Start the containers (runs `extension` and copies LocalSettings.php)
 up: LocalSettings.php
 	$(COMPOSE) up -d
 	$(MAKE) --no-print-directory extension
 	$(COMPOSE) cp LocalSettings.php mediawiki:/var/www/html/LocalSettings.php
 
+## down: Stop and remove the containers
 down:
 	$(COMPOSE) down
 
+## clean: Stop the containers and delete the database volume (DESTRUCTIVE)
 clean:
 	$(COMPOSE) down -v
 
@@ -51,6 +65,7 @@ clean:
 # The extension repo is public, so no authentication is needed.
 # The existence check runs inside the same shell as the install: each recipe
 # line runs in its own shell, so a separate-line `exit 0` would not skip it.
+## extension: Install the UbuntuWiki extension into the container (skips if present)
 extension:
 	$(MW_T) bash -c '\
 		if [ -d extensions/UbuntuWiki ]; then \
