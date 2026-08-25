@@ -45,12 +45,6 @@ $wgLogos = [
 
 unset($wgFooterIcons['poweredby']);
 
-$wgUbuntuNightMode = [
-    'beta'      => false,
-    'logged_in' => true,
-    'logged_out' => true,
-];
-
 # Cookie consent & Google Tag Manager
 # Enable the Canonical cookie policy consent banner (provided by the UbuntuWiki
 # extension, which also adds a "Manage your tracker settings" footer link).
