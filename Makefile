@@ -40,12 +40,16 @@ else \
 fi
 endef
 
+# Help is generated from this file: `## name: description` comments document
+# targets, `### Name` comments start a category. Both are printed in file
+# order, so keep targets ordered by importance within their category.
 ## help: Show this help (default target)
 help:
 	@echo "Usage: make <target>"
+	@awk '/^### / { printf "\n%s:\n", substr($$0, 5); next } /^## [a-zA-Z_-]+: / && !/^## help:/ { line = substr($$0, 4); i = index(line, ": "); printf "  %-18s %s\n", substr(line, 1, i - 1), substr(line, i + 2) }' $(MAKEFILE_LIST)
 	@echo ""
-	@echo "Targets:"
-	@grep -Eh '^## [a-zA-Z_-]+: ' $(MAKEFILE_LIST) | sed -e 's/^## //' | sort | awk -F': ' '{printf "  %-16s %s\n", $$1, $$2}'
+
+### Lifecycle
 
 ## setup: Create and initialize the wiki from scratch (installs MediaWiki)
 setup: up
@@ -99,30 +103,7 @@ clean:
 distclean: clean
 	rm -f LocalSettings.php
 
-## settings: Copy LocalSettings.php into the container and run DB update
-settings: LocalSettings.php
-	$(COMPOSE) cp LocalSettings.php mediawiki:/var/www/html/LocalSettings.php
-	$(MAKE) --no-print-directory db-update
-
-## db-update: Run the MediaWiki database update script
-db-update:
-	$(MW_T) php maintenance/run.php update --quick
-
-# Install the UbuntuWiki extension (required by the skin) into the container.
-# The existence check runs inside the same shell as the install: each recipe
-# line runs in its own shell, so a separate-line `exit 0` would not skip it.
-## extension: Install the UbuntuWiki extension into the container (skips if present)
-extension:
-	$(MW_T) bash -c '\
-		if [ -d extensions/UbuntuWiki ]; then \
-			echo "UbuntuWiki extension already installed, skipping."; \
-			exit 0; \
-		fi; \
-		$(EXTENSION_SETUP)'
-
-## extension-update: Force-update the UbuntuWiki extension, even if already installed
-extension-update:
-	$(MW_T) bash -c '$(EXTENSION_SETUP)'
+### Content
 
 # Import the test pages from seed/ into the wiki. Page titles come from the
 # file names (e.g. "Template:Code_block.txt" becomes "Template:Code block").
@@ -140,6 +121,41 @@ seed:
 	@# during CLI import, so run them now or those links stay red.
 	$(MAKE) --no-print-directory jobs
 
+## jobs: Force-run the MediaWiki job queue
+jobs:
+	$(MW_T) php maintenance/run.php runJobs
+
+### Configuration
+
+## settings: Copy LocalSettings.php into the container and run DB update
+settings: LocalSettings.php
+	$(COMPOSE) cp LocalSettings.php mediawiki:/var/www/html/LocalSettings.php
+	$(MAKE) --no-print-directory db-update
+
+## db-update: Run the MediaWiki database update script
+db-update:
+	$(MW_T) php maintenance/run.php update --quick
+
+### UbuntuWiki extension
+
+# Install the UbuntuWiki extension (required by the skin) into the container.
+# The existence check runs inside the same shell as the install: each recipe
+# line runs in its own shell, so a separate-line `exit 0` would not skip it.
+## extension: Install the UbuntuWiki extension into the container (skips if present)
+extension:
+	$(MW_T) bash -c '\
+		if [ -d extensions/UbuntuWiki ]; then \
+			echo "UbuntuWiki extension already installed, skipping."; \
+			exit 0; \
+		fi; \
+		$(EXTENSION_SETUP)'
+
+## extension-update: Force-update the UbuntuWiki extension, even if already installed
+extension-update:
+	$(MW_T) bash -c '$(EXTENSION_SETUP)'
+
+### Debugging
+
 ## logs: Follow the mediawiki container logs (Ctrl-C to stop)
 logs:
 	$(COMPOSE) logs -f mediawiki
@@ -147,10 +163,6 @@ logs:
 ## shell: Open an interactive bash shell in the mediawiki container
 shell:
 	$(MW) bash
-
-## jobs: Force-run the MediaWiki job queue
-jobs:
-	$(MW_T) php maintenance/run.php runJobs
 
 ## run: Run a MediaWiki maintenance script, e.g. make run SCRIPT="runJobs --maxjobs 5"
 run:
