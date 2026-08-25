@@ -1,0 +1,20 @@
+The Ubuntu wiki's shared template styles are produced by on-wiki templates that emit <code>ubuntu-template-*</code> markup. The same templates should render consistently in Minerva and the Ubuntu skin.
+
+== Admonitions ==
+
+{{Note|A note gives readers supplementary information without interrupting the surrounding instructions.}}
+
+{{Warning|A warning identifies an action or configuration that needs extra care.}}
+
+{{Tip|A tip suggests a shorter or easier way to complete the task.}}
+
+{{DocCan|A Canonical documentation notice points readers at maintained documentation.}}
+
+{{Info|An information notice highlights context that explains the current page.}}
+
+{{Danger|A danger notice warns about an action that could lose data or break the system.}}
+
+== Template pages ==
+
+* [[Template:Admonition]] — generic admonition used by the typed wrappers
+* [[Template:Note]], [[Template:Warning]], [[Template:Tip]], [[Template:DocCan]], [[Template:Info]], [[Template:Danger]] — typed admonitions

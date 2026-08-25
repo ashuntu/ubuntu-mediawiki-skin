@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := help
 
 .PHONY: help setup up down restart clean distclean settings db-update \
-	extension extension-update logs shell run jobs
+	extension extension-update seed logs shell run jobs
 
 # Password for the initial admin account created by `make setup`
 ADMIN_PASSWORD := UbuntuWiki2026!
@@ -60,6 +60,7 @@ setup: up
 	@# The installer writes its own LocalSettings.php; overwrite with ours
 	$(COMPOSE) cp LocalSettings.php mediawiki:/var/www/html/LocalSettings.php
 	$(MAKE) --no-print-directory db-update
+	$(MAKE) --no-print-directory seed
 	@echo ""
 	@echo "Setup complete!"
 	@echo "  URL:      http://localhost:$(PORT)"
@@ -122,6 +123,22 @@ extension:
 ## extension-update: Force-update the UbuntuWiki extension, even if already installed
 extension-update:
 	$(MW_T) bash -c '$(EXTENSION_SETUP)'
+
+# Import the test pages from seed/ into the wiki. Page titles come from the
+# file names (e.g. "Template:Code_block.txt" becomes "Template:Code block").
+# Idempotent: --overwrite replaces pages that already exist.
+## seed: Import the test pages from seed/ into the wiki (idempotent)
+seed:
+	$(MW_T) mkdir -p /tmp/seed
+	$(COMPOSE) cp seed/. mediawiki:/tmp/seed/
+	$(MW_T) bash -c '\
+		php maintenance/run.php importTextFiles \
+			--user Admin --summary "Seed test content" --overwrite \
+			/tmp/seed/*.txt'
+	@# Pages imported early in the glob (e.g. Main_Page) link to pages created
+	@# later (e.g. TOC test); the backlink refresh jobs are queued but not run
+	@# during CLI import, so run them now or those links stay red.
+	$(MAKE) --no-print-directory jobs
 
 ## logs: Follow the mediawiki container logs (Ctrl-C to stop)
 logs:

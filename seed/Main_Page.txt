@@ -1,0 +1,17 @@
+Welcome to the local Ubuntu skin test instance.
+
+This wiki runs the [https://github.com/ubuntu/ubuntu-mediawiki-skin Ubuntu skin] from a live-mounted checkout, so edits to the skin's files apply on page reload. The [https://github.com/ubuntu/ubuntu-mediawiki-extension UbuntuWiki extension] is installed via composer and provides the shared styles, fonts, footer links, cookie consent banner, and code block enhancements the skin relies on.
+
+== Test pages ==
+
+* [[TOC test]] — long article with many sections; exercises the sticky table of contents, section collapsing, and scroll spy
+* [[Wide tables]] — large tables and long unbreakable strings for testing horizontal overflow and responsive layout
+* [[Preferences]] — skin user preferences: night mode, limited width, and pinned/persistent UI state
+* [[Template examples]] — shared admonition and code block templates (from the UbuntuWiki extension seed)
+
+== Useful things to try ==
+
+* Toggle the theme with the '''light/dark''' switch in the page tools menu (requires being logged in for persistence)
+* Resize the browser below the breakpoints (~1120px and ~768px) to test the responsive grid and collapsible sidebar
+* [[Special:Version]] — loaded extensions and skins
+* The footer shows the Ubuntu links and the "Manage your tracker settings" consent button
