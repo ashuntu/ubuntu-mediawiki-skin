@@ -1,0 +1,21 @@
+The Ubuntu skin exposes several user-facing toggles. This page lists what to change and what to check, for both anonymous and logged-in sessions.
+
+== Night mode ==
+
+* Check: night mode toggle block, switching between dark, light, and system. This persists on page reload and as a user preference when logged in.
+* Check: code blocks, admonition boxes ([[Template examples]]), and tables ([[Wide tables]]) all have night-mode variants — verify none keep light backgrounds
+
+== Limited content width ==
+
+* [[Special:Preferences]] → '''Appearance''' → toggle limited width, then compare this page with [[TOC test]]
+* Check: the content column widens/narrows while the sidebar and TOC stay put
+
+== Pinnable elements ==
+
+* Unpin the main menu (sidebar) and the page tools menu using the pin icons
+* Reload — the pinned/unpinned state persists via client preferences, for anonymous users too
+* Check: with the sidebar unpinned, the content column reflows without a flash of the wrong layout
+
+== Not logged in? ==
+
+Anonymous users get client-preference persistence (localStorage-backed) for night mode, width, and pinning. Log in as <code>admin</code> (see the setup output) to test server-side preference storage.

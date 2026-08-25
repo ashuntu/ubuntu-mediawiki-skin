@@ -1,0 +1,35 @@
+This page stresses the skin's content layout: wide tables should scroll horizontally within the content area instead of breaking the grid, and long unbreakable strings should not push the sidebar or TOC off-screen. Resize the browser below each breakpoint (~1120px, ~768px) and check that the header, TOC, and footer stay intact.
+
+== Wide wikitable ==
+
+{| class="wikitable"
+! Column 1 !! Column 2 !! Column 3 !! Column 4 !! Column 5 !! Column 6 !! Column 7 !! Column 8 !! Column 9 !! Column 10
+|-
+| Alpha bravo charlie || Delta echo foxtrot || Golf hotel india || Juliett kilo lima || Mike november oscar || Papa quebec romeo || Sierra tango uniform || Victor whiskey x-ray || Yankee zulu alpha || Bravo charlie delta
+|-
+| One || Two || Three || Four || Five || Six || Seven || Eight || Nine || Ten
+|-
+| 1000000 || 2000000 || 3000000 || 4000000 || 5000000 || 6000000 || 7000000 || 8000000 || 9000000 || 10000000
+|}
+
+== Long unbreakable strings ==
+
+A URL that cannot wrap:
+
+<code>https://wiki.ubuntu.com/Some/Very/Deep/Page/Path/With/Many/Segments/That/Goes/On/And/On/Without/Any/Spaces/Or/Hyphens/To/Break/At/Until/It/Exceeds/The/Available/Content/Width/By/A/Considerable/Margin/Indeed</code>
+
+A hash-like token in prose: <code>9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a089f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08</code>
+
+== Code block with long lines ==
+
+{{Code block|journalctl --unit=snapd --since "2026-01-01" --no-pager --output=verbose --grep="some extremely long pattern that will not fit within the content column without horizontal scrolling"}}
+
+== Narrow table (control) ==
+
+{| class="wikitable"
+! Name !! Value
+|-
+| Width || Should not scroll
+|-
+| Height || Fits fine
+|}
