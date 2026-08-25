@@ -66,12 +66,12 @@ make setup
 ```
 
 Visit http://localhost:8081 — username: `admin`, password: `UbuntuWiki2026!`
+(override the port with `UBUNTU_SKIN_PORT=<port>`).
 
-### Clean up
+### Commands
 
-```sh
-make clean
-```
+Run `make` (or `make help`) for the full list of commands — seeding test
+pages, logs, shell access, the job queue, and cleanup.
 
 ## Compared to Vector 2022
 

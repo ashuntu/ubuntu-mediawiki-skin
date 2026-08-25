@@ -24,7 +24,7 @@ services:
       # composer.local.json pulls in the UbuntuWiki extension from GitHub;
       # `make setup` / `make up` run composer inside the container to install it
       - ./composer.local.json:/var/www/html/composer.local.json
-      # LocalSettings.php is managed via: make deploy
+      # LocalSettings.php is managed via: make settings
     depends_on:
       - db
 
