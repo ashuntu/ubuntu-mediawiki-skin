@@ -58,6 +58,7 @@
 						}
 					},
 					"bodyClasses": [
+						"skin-vector-2022",
 						"skin--responsive",
 						"skin-ubuntu",
 						"skin-ubuntu-search-vue"
