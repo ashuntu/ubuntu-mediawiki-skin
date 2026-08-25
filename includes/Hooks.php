@@ -7,11 +7,13 @@ use MediaWiki\Config\Config;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Preferences\Hook\GetPreferencesHook;
 use MediaWiki\ResourceLoader as RL;
+use MediaWiki\ResourceLoader\Hook\ResourceLoaderRegisterModulesHook;
 use MediaWiki\Skin\Hook\SkinPageReadyConfigHook;
 use MediaWiki\Skin\SkinTemplate;
 use MediaWiki\Skins\Ubuntu\Hooks\HookRunner;
 use MediaWiki\User\Options\UserOptionsManager;
 use MediaWiki\User\User;
+use ReflectionProperty;
 
 /**
  * Presentation hook handlers for Ubuntu skin.
@@ -24,12 +26,47 @@ use MediaWiki\User\User;
 class Hooks implements
 	GetPreferencesHook,
 	LocalUserCreatedHook,
+	ResourceLoaderRegisterModulesHook,
 	SkinPageReadyConfigHook
 {
 	public function __construct(
 		private readonly Config $config,
 		private readonly UserOptionsManager $userOptionsManager,
 	) {
+	}
+
+	/**
+	 * ResourceLoaderRegisterModules hook handler.
+	 *
+	 * Copies any skinStyles that extensions register for Vector 2022
+	 * (e.g. VisualEditor's integration styles that hide the table of
+	 * contents in edit mode) so they also apply to this skin.
+	 * Extensions key these styles off the registered skin name, and
+	 * 'vector-2022' is only ever *reported* by SkinVector22::getSkinName() —
+	 * it is never a registered skin — so they would otherwise never load here.
+	 *
+	 * The module registration arrays are mutated directly (rather than via
+	 * ResourceLoader::getModule()) to avoid eagerly constructing every module.
+	 *
+	 * @param RL\ResourceLoader $rl
+	 */
+	public function onResourceLoaderRegisterModules( RL\ResourceLoader $rl ): void {
+		$prop = new ReflectionProperty( RL\ResourceLoader::class, 'moduleInfos' );
+		$moduleInfos = $prop->getValue( $rl );
+		$changed = false;
+		foreach ( $moduleInfos as $name => $info ) {
+			if (
+				isset( $info['skinStyles'][ Constants::SKIN_NAME_MODERN ] ) &&
+				!isset( $info['skinStyles'][ Constants::SKIN_NAME_UBUNTU ] )
+			) {
+				$moduleInfos[ $name ]['skinStyles'][ Constants::SKIN_NAME_UBUNTU ] =
+					$info['skinStyles'][ Constants::SKIN_NAME_MODERN ];
+				$changed = true;
+			}
+		}
+		if ( $changed ) {
+			$prop->setValue( $rl, $moduleInfos );
+		}
 	}
 
 	/**

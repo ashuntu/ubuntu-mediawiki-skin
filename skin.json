@@ -157,6 +157,7 @@
 		"CentralAuthIsUIReloadRecommended": "UbuntuCentralAuthHooks",
 		"GetPreferences": "UbuntuHooks",
 		"LocalUserCreated": "UbuntuHooks",
+		"ResourceLoaderRegisterModules": "UbuntuHooks",
 		"SkinPageReadyConfig": "UbuntuHooks"
 	},
 	"@note": "When modifying skins.ubuntu.styles definition, make sure the installer still works",
