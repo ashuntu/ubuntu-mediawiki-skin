@@ -1,36 +1,50 @@
 .PHONY: setup deploy up down clean extension
 
+# Password for the initial admin account created by `make setup`
+ADMIN_PASSWORD := UbuntuWiki2026!
+
+# Host port for the test wiki; override with UBUNTU_SKIN_PORT=<port> to run
+# alongside other MediaWiki environments (see docker-compose.yml).
+# Distinct from the extension repo's UBUNTU_WIKI_PORT (default 8088) so both
+# environments can run at once.
+PORT := $(or $(UBUNTU_SKIN_PORT),8081)
+export UBUNTU_SKIN_PORT
+
+COMPOSE := docker compose
+MW := $(COMPOSE) exec mediawiki
+MW_T := $(COMPOSE) exec -T mediawiki
+
 setup: LocalSettings.php
-	docker compose up -d
+	$(COMPOSE) up -d
 	$(MAKE) --no-print-directory extension
 	@echo "Waiting for database..."
-	@until docker compose exec -T mediawiki bash -c "php -r \"new mysqli('db', 'mediawiki', 'mediawiki', 'mediawiki');\"" > /dev/null 2>&1; do printf '.'; sleep 2; done
+	@until $(MW_T) bash -c "php -r \"new mysqli('db', 'mediawiki', 'mediawiki', 'mediawiki');\"" > /dev/null 2>&1; do printf '.'; sleep 2; done
 	@echo " ready."
-	docker compose exec mediawiki php maintenance/run.php install \
+	$(MW) php maintenance/run.php install \
 		--dbtype mysql --dbserver db --dbname mediawiki \
 		--dbuser mediawiki --dbpass mediawiki \
-		--pass UbuntuWiki2026! \
+		--pass '$(ADMIN_PASSWORD)' \
 		"Ubuntu wiki" admin
-	docker compose cp LocalSettings.php mediawiki:/var/www/html/LocalSettings.php
+	$(COMPOSE) cp LocalSettings.php mediawiki:/var/www/html/LocalSettings.php
 	@echo ""
 	@echo "Setup complete!"
-	@echo "  URL:      http://localhost:8081"
+	@echo "  URL:      http://localhost:$(PORT)"
 	@echo "  Username: admin"
-	@echo "  Password: UbuntuWiki2026!"
+	@echo "  Password: $(ADMIN_PASSWORD)"
 
 deploy: LocalSettings.php
-	docker compose cp LocalSettings.php mediawiki:/var/www/html/LocalSettings.php
+	$(COMPOSE) cp LocalSettings.php mediawiki:/var/www/html/LocalSettings.php
 
 up: LocalSettings.php
-	docker compose up -d
+	$(COMPOSE) up -d
 	$(MAKE) --no-print-directory extension
-	docker compose cp LocalSettings.php mediawiki:/var/www/html/LocalSettings.php
+	$(COMPOSE) cp LocalSettings.php mediawiki:/var/www/html/LocalSettings.php
 
 down:
-	docker compose down
+	$(COMPOSE) down
 
 clean:
-	docker compose down -v
+	$(COMPOSE) down -v
 
 # Install the UbuntuWiki extension (required by the skin) into the container
 # via composer, using the composer.local.json mounted by docker-compose.
@@ -38,7 +52,7 @@ clean:
 # The existence check runs inside the same shell as the install: each recipe
 # line runs in its own shell, so a separate-line `exit 0` would not skip it.
 extension:
-	docker compose exec -T mediawiki bash -c '\
+	$(MW_T) bash -c '\
 		if [ -d extensions/UbuntuWiki ]; then \
 			echo "UbuntuWiki extension already installed, skipping."; \
 			exit 0; \
